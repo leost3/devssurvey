@@ -1,10 +1,11 @@
 import Footer from '@/presentation/components/footer/footer'
+import { FormStatus } from '@/presentation/components/form-status/form-status'
 import { Input } from '@/presentation/components/input/input'
 import Header from '@/presentation/components/login-header/login-header'
-import Spinner from '@/presentation/components/spinner/Spinner'
 import React from 'react'
 
 import Styles from './login.styles.scss'
+
 
 
 const Login: React.FC = () => (
@@ -16,12 +17,7 @@ const Login: React.FC = () => (
       <Input type="password" name="password" placeholder="insert your password"/>
       <button className={Styles.submit} type="submit">Enter</button>
       <span className={Styles.link}>Create account</span>
-      <div className={Styles.errorWrap}>
-        <Spinner className={Styles.spinner} />
-        <span className={Styles.error}>
-          error
-        </span>
-      </div>
+      <FormStatus />
     </form>
     <Footer />
   </div>
