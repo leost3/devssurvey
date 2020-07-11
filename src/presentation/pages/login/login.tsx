@@ -4,21 +4,21 @@ import React, { useState } from 'react'
 
 import Styles from './login.styles.scss'
 
-type StateProps = {
-  isLoading: boolean
-  errorMessage: string
-}
-
 const Login: React.FC = () => {
-  const [state] = useState<StateProps>({
+  const [state] = useState({
     isLoading: false,
     errorMessage: ''
   })
 
+  const [errorState] = useState({
+    email: 'required',
+    password: 'required',
+    main: ''
+  })
   return (
     <div className={Styles.login}>
       <Header />
-      <Context.Provider value={state}>
+      <Context.Provider value={{ state, errorState }}>
         <form action="" className={Styles.form}>
           <h2>login</h2>
           <Input type="email" name="email" placeholder="insert your e-mail" />
