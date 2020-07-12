@@ -25,7 +25,7 @@ type SutParams = {
   validationError: string
 }
 
-const history = createMemoryHistory()
+const history = createMemoryHistory({ initialEntries: ['/login'] })
 
 const makeSut = (params?: SutParams): SutTypes => {
   const authentocationSpy = new AuthenticationSpy()
@@ -165,19 +165,20 @@ describe(Login, () => {
     expect(mainError.textContent).toBe(error.message)
     expect(errorWrap.childElementCount).toBe(1)
   })
-  it('should add accessToken to localstorage on success', async () => {
+  it('should add accessToken to localstorage on success and navigate to main page', async () => {
     const { sut, authentocationSpy } = makeSut()
     simulateValidSubmit(sut)
     const form = sut.getByTestId('form')
     await waitFor(() => form)
     expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authentocationSpy.account.accessToken)
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/')
   })
 
   it('should go to signup page', () => {
     const { sut } = makeSut()
     const register = sut.getByTestId('signup')
     fireEvent.click(register)
-    console.log(history)
     expect(history.length).toBe(2)
     expect(history.location.pathname).toBe('/signup')
   })
