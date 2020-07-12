@@ -1,3 +1,5 @@
+import 'jest-localstorage-mock'
+
 import { InvalidCredentialsError } from '@/domain/errors'
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test'
 import {
@@ -57,6 +59,9 @@ const simulateStatusForField = (sut: RenderResult, fieldName: string, validation
 
 describe(Login, () => {
   afterEach(cleanup)
+  beforeEach(() => {
+    localStorage.clear()
+  })
   it('should start with initial state', () => {
     const validationError = faker.random.words()
     const { sut } = makeSut({ validationError })
@@ -150,5 +155,12 @@ describe(Login, () => {
     const mainError = sut.getByTestId('main-error')
     expect(mainError.textContent).toBe(error.message)
     expect(errorWrap.childElementCount).toBe(1)
+  })
+  it('should add accessToken to localstorage on success', async () => {
+    const { sut, authentocationSpy } = makeSut()
+    simulateValidSubmit(sut)
+    const form = sut.getByTestId('form')
+    await waitFor(() => form)
+    expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authentocationSpy.account.accessToken)
   })
 })
