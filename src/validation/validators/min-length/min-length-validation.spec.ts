@@ -4,8 +4,14 @@ import { MinLengthValidation } from './min-length-validation'
 
 describe('MinLengthValidator', () => {
   it('should return error if value is invalid', () => {
-    const sut = new MinLengthValidation('any_field', 6)
-    const error = sut.validate('any_value')
+    const sut = new MinLengthValidation('field', 6)
+    const error = sut.validate('value')
     expect(error).toEqual(new InvalidFieldError())
+  })
+
+  it('should return null if value is valid', () => {
+    const sut = new MinLengthValidation('field', 6)
+    const error = sut.validate('valid_value')
+    expect(error).toBeFalsy()
   })
 })
