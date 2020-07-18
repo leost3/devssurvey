@@ -7,5 +7,5 @@ import { makeApiUrl } from '../../http/api-url-factory'
 import { makeSxiosHttpClient } from '../../http/axios-http-client-factory'
 
 export const makeRemoteAuthentication = (): Authentication => {
-  return new RemoteAuthentication(makeApiUrl(), makeSxiosHttpClient())
+  return new RemoteAuthentication(makeApiUrl('/login'), makeSxiosHttpClient())
 }
