@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/leost3/devssurvey.svg?branch=master)](https://travis-ci.org/leost3/devssurvey)
+[![Coverage Status](https://coveralls.io/repos/github/leost3/devssurvey/badge.svg?branch=master)](https://coveralls.io/github/leost3/devssurvey?branch=master)
